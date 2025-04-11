@@ -112,19 +112,21 @@ const EditorPage = () => {
                         ))}
                     </div>
                 </div>
-                <button className="btn copyBtn" onClick={copyRoomId}>
-                    Copy ROOM ID
-                </button>
-                <button className="btn leaveBtn" onClick={leaveRoom}>
-                    Leave
-                </button>
+                <div className='buttonGroup'>
+                    <button className="btn copyBtn" onClick={copyRoomId}>
+                        Copy ROOM ID
+                    </button>
+                    <button className="btn leaveBtn" onClick={leaveRoom}>
+                        Leave
+                    </button>
+                </div>
             </div>
             <div className="editorWrap">
-                <Editor
-                    socketRef={socketRef}
+                <Editor 
+                    socketRef={socketRef} 
                     roomId={roomId}
                     onCodeChange={(code) => {
-                        codeRef.current = code;
+                    codeRef.current = code;
                     }}
                 />
             </div>
