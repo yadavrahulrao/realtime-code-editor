@@ -1,0 +1,138 @@
+.homePageWrapper{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.formWrapper{
+  background: #282a36;
+  padding: 53.5px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+}
+footer{
+  position: fixed;
+  bottom: 0;
+}
+
+.inputGroup{
+  display: flex;
+  flex-direction: column;
+}
+
+.inputBox{
+  padding: 10px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  margin-bottom: 14px;
+  background: #eee;
+  font-size: 16px ;
+  font-weight: bold;
+}
+
+.btn{
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3 ease-in-out;
+
+}
+
+.joinbtn{
+  background: #4aed88;
+  width: 100px;
+  margin-left: auto;
+}
+
+.joinbtn:hover{
+  background: #2b842c;
+
+}
+
+.createInfo{
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.createNewbtn{
+  color: #2b842c;
+  text-decoration: none;
+  border-bottom: 1px solid #2b842c;
+  transition: all 0.3 ease-in-out ;
+}
+
+.mainLabel{
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
+.mainWrap{
+  display: grid;
+  grid-template-columns: 230px 1fr;
+}
+
+.aside{
+  background: #1c1e29;
+  padding: 16px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+
+
+}
+
+.asideInner{
+  flex: 1;
+}
+
+.clientsList{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+    
+}
+
+.client{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+.logo{
+  border-bottom: 2px solid #424242;
+  padding-bottom: 10px; 
+
+
+}
+
+.userName{
+  margin-top: 10px;
+
+}
+
+.logoImage{
+  height:71px;
+}
+
+.leavebtn{
+  margin-top: 20px;
+  background: red;
+}
+
+.CodeMirror{
+  max-height:calc(100vh - 20px);
+  font-size: 15px;
+  line-height: 1.6;
+  padding-top:40px;
+
+}
+
