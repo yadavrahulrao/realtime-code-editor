@@ -173,3 +173,23 @@ html,body , #root{
 #realtimeEditor{
   height: 100% !important;
 }
+
+.downloadBtn, .runBtn {
+  margin-top: 10px;
+  background-color: #4CAF50;
+  color: white;
+}
+
+.outputBox {
+  margin-top: 20px;
+  background-color: #2d2d2d;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+}
+.languageSelect {
+  margin-top: 10px;
+  padding: 5px;
+  font-size: 14px;
+  border-radius: 4px;
+}

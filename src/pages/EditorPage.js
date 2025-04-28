@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
 import toast from 'react-hot-toast';
 import ACTIONS from '../Actions';
 import Client from '../components/Client';
@@ -18,6 +19,60 @@ const EditorPage = () => {
     const { roomId } = useParams();
     const reactNavigator = useNavigate();
     const [clients, setClients] = useState([]);
+    const [language, setLanguage] = useState('javascript');
+    
+    async function runCode() {
+        const source_code = codeRef.current || '';
+        const language_id = language === 'python' ? 71 : 63; // 71 = Python 3, 63 = JavaScript (Node.js)
+
+        const encodedCode = btoa(source_code); // base64 encode
+
+        try {
+            const { data: submission } = await axios.post(
+                'https://judge0-ce.p.rapidapi.com/submissions',
+                {
+                    source_code: encodedCode,
+                    language_id: language_id,
+                    encode: true,
+                },
+                {
+                    headers: {
+                        'content-type': 'application/json',
+                        'X-RapidAPI-Key': 'c7cc39dca6msh13c55688152137ep1095fejsn4601d795a6bc', // Replace with your API key
+                        'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
+                    },
+                }
+            );
+
+            const token = submission.token;
+
+            // Poll result
+            const interval = setInterval(async () => {
+                const result = await axios.get(
+                    `https://judge0-ce.p.rapidapi.com/submissions/${token}`,
+                    {
+                        headers: {
+                            'X-RapidAPI-Key': 'YOUR_RAPIDAPI_KEY',
+                            'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
+                        },
+                    }
+                );
+
+                const status = result.data.status.description;
+
+                if (status !== 'In Queue' && status !== 'Processing') {
+                    clearInterval(interval);
+                    const output = atob(result.data.stdout || '') || 'No output';
+                    toast.success(`Output: ${output}`);
+                    console.log('Execution result:', output);
+                }
+            }, 1000);
+        } catch (error) {
+            toast.error('Execution failed');
+            console.error(error);
+        }
+    }
+
 
     useEffect(() => {
         const init = async () => {
@@ -86,6 +141,34 @@ const EditorPage = () => {
     function leaveRoom() {
         reactNavigator('/');
     }
+    function downloadCode() {
+        const code = codeRef.current || '';
+        const extension = language === 'python' ? 'py' : 'js';
+        const mimeType = language === 'python' ? 'text/x-python' : 'text/javascript';
+    
+        const blob = new Blob([code], { type: `${mimeType};charset=utf-8` });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `script.${extension}`;
+        link.click();
+        URL.revokeObjectURL(url);
+    }
+    
+    function runCode() {
+        const code = codeRef.current || '';
+        try {
+            // Safe-ish for JS demos (do NOT use with untrusted code in real apps!)
+            // eslint-disable-next-line no-eval
+            const result = eval(code);
+            toast.success(`Output: ${result}`);
+            console.log('Execution result:', result);
+        } catch (error) {
+            toast.error('Error in execution');
+            console.error('Execution error:', error);
+        }
+    }
+    
 
     if (!location.state) {
         return <Navigate to="/" />;
@@ -119,6 +202,21 @@ const EditorPage = () => {
                     <button className="btn leaveBtn" onClick={leaveRoom}>
                         Leave
                     </button>
+                    <button className="btn downloadBtn" onClick={downloadCode}>
+                        Save File
+                    </button>
+                    <button className="btn runBtn" onClick={runCode}>
+                        Run 
+                    </button>
+                    <select
+                        className="languageSelect"
+                        value={language}
+                        onChange={(e) => setLanguage(e.target.value)}
+                    >
+                        <option value="javascript">JavaScript</option>
+                        <option value="python">Python</option>
+                    </select>
+
                 </div>
             </div>
             <div className="editorWrap">
