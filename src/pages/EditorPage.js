@@ -23,9 +23,9 @@ const EditorPage = () => {
     
     async function runCode() {
         const source_code = codeRef.current || '';
-        const language_id = language === 'python' ? 71 : 63; // 71 = Python 3, 63 = JavaScript (Node.js)
+        const language_id = language === 'python' ? 71 : 63;
 
-        const encodedCode = btoa(source_code); // base64 encode
+        const encodedCode = btoa(source_code);
 
         try {
             const { data: submission } = await axios.post(
@@ -38,7 +38,7 @@ const EditorPage = () => {
                 {
                     headers: {
                         'content-type': 'application/json',
-                        'X-RapidAPI-Key': 'c7cc39dca6msh13c55688152137ep1095fejsn4601d795a6bc', // Replace with your API key
+                        'X-RapidAPI-Key': 'c7cc39dca6msh13c55688152137ep1095fejsn4601d795a6bc',
                         'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
                     },
                 }
@@ -158,8 +158,7 @@ const EditorPage = () => {
     function runCode() {
         const code = codeRef.current || '';
         try {
-            // Safe-ish for JS demos (do NOT use with untrusted code in real apps!)
-            // eslint-disable-next-line no-eval
+           
             const result = eval(code);
             toast.success(`Output: ${result}`);
             console.log('Execution result:', result);
@@ -205,9 +204,7 @@ const EditorPage = () => {
                     <button className="btn downloadBtn" onClick={downloadCode}>
                         Save File
                     </button>
-                    <button className="btn runBtn" onClick={runCode}>
-                        Run 
-                    </button>
+                    
                     <select
                         className="languageSelect"
                         value={language}

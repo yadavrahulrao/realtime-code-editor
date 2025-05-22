@@ -174,7 +174,7 @@ html,body , #root{
   height: 100% !important;
 }
 
-.downloadBtn, .runBtn {
+.downloadBtn {
   margin-top: 10px;
   background-color: #4CAF50;
   color: white;
